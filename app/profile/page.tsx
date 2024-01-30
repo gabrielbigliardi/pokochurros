@@ -3,8 +3,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import InfoBox from "../_components/layout/InfoBox";
-import SuccessBox from "../_components/layout/SuccessBox";
+import toast from "react-hot-toast";
 
 export default function ProfilePage() {
 
@@ -28,44 +27,57 @@ export default function ProfilePage() {
 
   async function handleProfileInfoUpdate(ev: any) {
     ev.preventDefault()
-    setSaved(false)
-    setIsSaving(true)
-    const res = await fetch('/api/profile', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: userName, image })
+
+    const savingPromise = new Promise(async (resolve: any, reject: any) => {
+      const res = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: userName, image })
+      })
+      if (res.ok)
+        resolve()
+      else
+        reject()
     })
-    setIsSaving(false)
 
-    if (res.ok) {
-      setSaved(true)
-    }
-
+    toast.promise(savingPromise, {
+      loading: 'Salvando...',
+      success: 'Perfil salvo!',
+      error: 'Erro ao salvar o perfil'
+    })
   }
 
-  async function handleFileChange(ev: any) {
+
+
+  async function handleImageChange(ev: any) {
     const files = ev.target.files
     if (files?.length === 1) {
       const data = new FormData
       data.set('file', files[0])
-      setIsUploading(true)
-      const res = await fetch('/api/upload', {
+
+      const uploadPromise = fetch('/api/upload', {
         method: "POST",
         body: data
+      }).then(res => {
+        if (res.ok) {
+          return res.json().then(link => {
+            setImage(link)
+          })
+        }
+
+        throw new Error('Algo deu errado')
       })
-      const link = await res.json()
-      setImage(link)
-      setIsUploading(false)
+
+
+      await toast.promise(uploadPromise, {
+        loading: 'Atualizando imagem...',
+        success: 'Imagem atualizada',
+        error: 'Erro ao atualizar a imagem'
+      })
+
     }
   }
 
-  if (status === "loading") {
-    return 'Loading...'
-  }
-
-  if (status === "unauthenticated") {
-    return redirect('/login')
-  }
 
   return (
     <section className="mt-8">
@@ -74,17 +86,6 @@ export default function ProfilePage() {
       </h1>
       <div className="max-w-md mx-auto">
 
-        {saved && (
-          <SuccessBox>Perfil salvo</SuccessBox>
-        )}
-        {isSaving && (
-          <InfoBox>Salvando...</InfoBox>
-        )}
-
-        {isUploading && (
-          <InfoBox>Atualizando...</InfoBox>
-        )}
-
         <div className="flex gap-4 items-center">
           <div>
             <div className=" p-2 rounded-lg relative max-w-[120px]">
@@ -92,7 +93,7 @@ export default function ProfilePage() {
                 <Image className="rounded-lg w-full h-full mb-1" src={image as string} width={100} height={100} alt={'usuario'} />
               )}
               <label>
-                <input type="file" className="hidden" onChange={handleFileChange} />
+                <input type="file" className="hidden" onChange={handleImageChange} />
                 <span className="block border border-gray-300 rounded-lg p-2 text-center cursor-pointer">Editar</span>
               </label>
             </div>
@@ -101,7 +102,7 @@ export default function ProfilePage() {
             <input
               type="text"
               placeholder="Joe Doe"
-              value={userName as string}
+              value={userName}
               onChange={ev => setUserName(ev.target.value)}
             ></input>
             <input

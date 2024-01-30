@@ -4,6 +4,7 @@ import './globals.css'
 import Header from '@/app/_components/layout/Header'
 import { SessionProvider } from 'next-auth/react'
 import { AppProvider } from '@/app/_components/AppContext'
+import { Toaster } from 'react-hot-toast'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700', '900'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={roboto.className}>
         <main className='max-w-7xl mx-auto border p-4'>
           <AppProvider>
+            <Toaster />
             <Header />
             {children}
           </AppProvider>
