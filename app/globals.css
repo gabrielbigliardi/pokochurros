@@ -3,25 +3,223 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --fs-s: 1.5rem;
+    --fs-xs: 3rem;
+    --fs-m: 4rem;
+    --fs-xm: 5.25rem;
+    --fs-l: 7.75rem;
+    --fs-xl:clamp(5rem, 12vw + 1rem, 13.125rem);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+section.hero {
+    @apply grid;
+    grid-template-columns: .4fr .6fr;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    @apply block w-full my-4 rounded-xl;
+    @apply border p-2 border-gray-300 bg-gray-100;
+}
+
+input[type="email"]:disabled,
+input[type="password"]:disabled,
+input[type="text"]:disabled {
+    @apply bg-gray-300 border-0 cursor-not-allowed text-gray-500;
+}
+
+button {
+    @apply block w-full text-gray-700 font-semibold;
+    @apply border border-gray-300 rounded-xl px-6 py-2
+}
+
+button[type="submit"], .submit {
+    @apply border-0 bg-primary text-white;
+}
+
+button[type="submit"]:disabled, .submit:disabled {
+    @apply cursor-not-allowed bg-red;
+}
+
+
+
+/* WHO WE ARE */
+
+.who-we-are {
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+    margin: 284px auto;
+    padding: 0 100px;
+    gap: 184px;
+}
+
+.our-history {
+    display: flex;
+    max-width: 100vw;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+}
+
+.our-history > * {
+    width: 50%;
+}
+
+.our-history-text{
+    color: #E2001B;
+}
+
+.our-history-text h2 {
+    font-size: var(--fs-xl);
+    /* font-weight: 700px; */
+}
+
+.our-history-text h4 {
+    font-size: var(--fs-m);
+}
+
+.our-history-text p {
+    font-size: var(--fs-s);
+    line-height: 1.5em;
+    margin-top: 1em;
+}
+
+.our-history img {
+    /* width: 44vw; */
+    /* object-fit: cover; */
+    border-radius: 2em;
+    box-shadow: 10px 10px 0px 0px #E2001B;
+}
+
+
+.our-store {
+    display: flex;
+    max-width: 100vw;
+    gap: 80px;
+    display: flex;
+    max-width: 100vw;
+    justify-content: center;
+    align-items: center;
+    /* margin: auto; */
+    gap: 80px;
+    /* flex-basis: 1; */
+}
+
+.our-store-text {
+    color: #FDA400;
+    /* width: 792px; */
+}
+
+.our-store > * {
+    width: 50%;
+}
+
+.our-store img {
+    border-radius: 2em;
+    box-shadow: 10px 10px 0px 0px #FDA400;
+}
+
+/* .our-store-text h2 {
+    font-size: 13.125em;
+    font-weight: 700px;
+} */
+
+
+.our-store-text h4 {
+    font-size: var(--fs-m);
+}
+
+.our-store-text p {
+    font-size: var(--fs-s);
+    line-height: 1.5em;
+    margin-top: 1em;
+} 
+
+
+
+
+
+/* SLIDE */
+.logos {
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+.logos-slide {
+    display: inline-block;
+    padding: 1em 0;
+    animation: 5s slide infinite linear;
+}
+
+.logos-slide span {
+    font-size: 3em;
+    font-style: italic;
+    margin: 0 0.1em;
+    color: #FDA400;
+}
+
+.logos:hover .logos-slide {
+    animation-play-state: paused;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+
+/* FOOTER */
+footer {
+    background-color: #FDA400;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    /* flex-shrink: 0; */
+    justify-content: center;
+    align-items: start;
+    /* width: 89vw; */
+    /* height: 65vh; */
+    padding: 5.25em;
+    margin: 5.25em 6.25em;
+    border-radius: 2em;
+}
+
+.footer-franchise {
+    width: 100%;
+    padding-bottom: 5.25em;
+    border-bottom: 2px solid #E59400;
+}
+
+.footer-franchise h3 {
+    font-size: var(--fs-m);
+}
+
+.footer-franchise p {
+    font-size: var(--fs-s);
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 5.25em;
+}
+
+.footer-info li {
+    margin: .5em 0;
+    font-size: 1em;
+}
+
+.footer-info h5 {
+    margin: .5em 0;
+    font-size: var(--fs-s);
 }

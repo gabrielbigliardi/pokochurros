@@ -22,6 +22,7 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/auth/[...nextauth]/route.js"],
+  // "models/User.js"   => tava no array "include"
   "exclude": ["node_modules"]
 }
