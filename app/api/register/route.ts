@@ -1,4 +1,4 @@
-import { User } from "@/app/models/User"
+import { User } from "@/app/_models/User"
 import { genSaltSync, hashSync } from "bcrypt"
 import mongoose from "mongoose"
 

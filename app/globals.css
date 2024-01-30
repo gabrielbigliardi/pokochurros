@@ -185,7 +185,7 @@ footer {
     flex-direction: column;
     /* flex-shrink: 0; */
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     /* width: 89vw; */
     /* height: 65vh; */
     padding: 5.25em;
