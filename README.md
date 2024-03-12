@@ -1,3 +1,18 @@
+# About
+
+### Esse projeto segue em desenvolvimento
+
+Parado á algum tempo devido pedido do cliente, mas com planos de termino ainda esse ano. 
+
+Trata-se de uma landing page de um comércio de Panchos e Churros.
+
+A ideia da aplicação é mostrar o que o negócio tem a oferecer e, assim, atrair novos investidores.
+
+O design foi feito em conjunto com equipe com a qual fiz parceria.
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
